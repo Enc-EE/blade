@@ -1,4 +1,5 @@
 import { Animatable } from "./animation";
+import { Controller } from "./controller";
 
 export class Blade implements Animatable {
     private x: number;
@@ -6,68 +7,26 @@ export class Blade implements Animatable {
     private vx: number;
     private vy: number;
     private angle: number;
-    private moveDown: number;
-    private moveRight: number;
-    private moveUp: number;
-    private moveLeft: number;
 
-
-    constructor() {
+    constructor(private controller: Controller, private color: string) {
         this.x = 0;
         this.y = 0;
         this.vx = 0;
         this.vy = 0;
         this.angle = 0;
-        this.moveDown = 0;
-        this.moveRight = 0;
-        this.moveUp = 0;
-        this.moveLeft = 0;
-
-        document.addEventListener('keydown', (event) => {
-            const keyName = event.key;
-            if (event.keyCode == 37) {
-                this.moveLeft = 1;
-            }
-            if (event.keyCode == 38) {
-                this.moveUp = 1;
-            }
-            if (event.keyCode == 39) {
-                this.moveRight = 1;
-            }
-            if (event.keyCode == 40) {
-                this.moveDown = 1;
-            }
-        });
-
-        document.addEventListener('keyup', (event) => {
-            const keyName = event.key;
-            if (event.keyCode == 37) {
-                this.moveLeft = 0;
-            }
-            if (event.keyCode == 38) {
-                this.moveUp = 0;
-            }
-            if (event.keyCode == 39) {
-                this.moveRight = 0;
-            }
-            if (event.keyCode == 40) {
-                this.moveDown = 0;
-            }
-        });
     }
 
     public update = (timeDiffMs: number) => {
-
         this.angle = this.angle + Math.PI / 9;
         this.angle = this.angle % (Math.PI * 2);
-        this.vx += -this.moveLeft + this.moveRight;
-        this.vy += -this.moveUp + this.moveDown;
+        this.vx += this.controller.xAxes / 600;
+        this.vy += this.controller.yAxes / 600;
 
-        this.x += this.vx;
-        this.y += this.vy;
+        this.x += this.vx * timeDiffMs;
+        this.y += this.vy * timeDiffMs;
     }
     public draw = (ctx: CanvasRenderingContext2D, width?: number, height?: number) => {
-        ctx.fillStyle = "black";
+        ctx.fillStyle = this.color;
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
