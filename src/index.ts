@@ -1,9 +1,8 @@
-function component() {
-  let element = document.createElement('div');
+import { App } from "./app";
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = "Hello :)";
-  return element;
+document.addEventListener('DOMContentLoaded', main, false);
+
+function main() {
+  const app = new App();
+  app.run();
 }
-
-document.body.appendChild(component());
