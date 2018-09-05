@@ -4,7 +4,7 @@ export class KeyboardControls implements Controller {
     public xAxes: number;
     public yAxes: number;
 
-    constructor(leftKey: number, upKey: number, rightKey: number, downKey: number) {
+    constructor(public name: string, leftKey: number, upKey: number, rightKey: number, downKey: number) {
         this.xAxes = 0;
         this.yAxes = 0;
 
