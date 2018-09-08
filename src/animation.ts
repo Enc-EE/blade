@@ -1,5 +1,7 @@
-type AnimationFunction = (ctx: CanvasRenderingContext2D, width?: number, height?: number) => void;
-type UpdateFunction = (timeDiffMs: number) => void;
+import { View } from "./view";
+
+export type AnimationFunction = (ctx: CanvasRenderingContext2D, width?: number, height?: number) => void;
+export type UpdateFunction = (timeDiffMs: number) => void;
 
 export interface Animatable {
     update: UpdateFunction;
@@ -78,6 +80,16 @@ export class Animation {
     public removeAnimatable = (animatable: Animatable) => {
         this.updates.splice(this.updates.indexOf(animatable.update), 1);
         this.animations.splice(this.animations.indexOf(animatable.draw), 1);
+    }
+
+    public addView = (view: View) => {
+        this.addAnimatable(view);
+        view.width = this.width;
+        view.height = this.height;
+    }
+
+    public removeView = (view: View) => {
+        this.removeAnimatable(view);
     }
 
     private lastFrameTime: number;

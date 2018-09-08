@@ -4,9 +4,12 @@ export class KeyboardControls implements Controller {
     public xAxes: number;
     public yAxes: number;
 
+    public start: boolean;
+
     constructor(public name: string, leftKey: number, upKey: number, rightKey: number, downKey: number) {
         this.xAxes = 0;
         this.yAxes = 0;
+        this.start = false;
 
         document.addEventListener('keydown', (event) => {
             if (event.keyCode == leftKey) {
@@ -20,6 +23,9 @@ export class KeyboardControls implements Controller {
             }
             if (event.keyCode == downKey) {
                 this.yAxes = 1;
+            }
+            if (event.keyCode == 13) {
+                this.start = true;
             }
         });
 
@@ -43,6 +49,9 @@ export class KeyboardControls implements Controller {
                 if (this.yAxes = 1) {
                     this.yAxes = 0;
                 }
+            }
+            if (event.keyCode == 13) {
+                this.start = false;
             }
         });
     }
