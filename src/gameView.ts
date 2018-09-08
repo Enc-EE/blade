@@ -1,8 +1,11 @@
 import { Controller } from "./controller";
 import { View } from "./view";
 import { Blade } from "./blade";
+import { Collider } from "./collider";
 
 export class GameView extends View {
+
+    private blades: Blade[] = [];
     public start(controllers: Controller[]) {
         for (let i = 0; i < controllers.length; i++) {
             const controller = controllers[i];
@@ -35,7 +38,9 @@ export class GameView extends View {
             blade.color = color;
             blade.x = startX;
             blade.y = startY;
+            this.blades.push(blade);
             this.addAnimatable(blade);
         }
+        this.addAnimatable(new Collider(this.blades, this.width, this.height));
     }
 }

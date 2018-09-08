@@ -5,8 +5,9 @@ export class Blade implements Animatable {
     public x: number;
     public y: number;
     public color: string
-    private vx: number;
-    private vy: number;
+    public vx: number;
+    public vy: number;
+    public r: number;
     private angle: number;
     private m: number;
     private f: number;
@@ -23,6 +24,7 @@ export class Blade implements Animatable {
         this.angle = 0;
         this.m = 0.1;
         this.f = 463;
+        this.r = 25;
 
         this.A = 0.01;
         this.cw = 0.05;
@@ -38,13 +40,13 @@ export class Blade implements Animatable {
 
         // fFrictionX = 0;
         // fFrictionY = 0;
-        
+
         var ax = this.f * this.controller.xAxes - fFrictionX / this.m;
         var ay = this.f * this.controller.yAxes - fFrictionY / this.m;
-        
+
         this.vx += ax * timeDiff;
         this.vy += ay * timeDiff;
-        
+
         this.x += this.vx * timeDiff;
         this.y += this.vy * timeDiff;
 
@@ -56,7 +58,8 @@ export class Blade implements Animatable {
 
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.fillRect(-25, -25, 50, 50);
+        var cubeSize = Math.sqrt(this.r * this.r / 2)
+        ctx.fillRect(-cubeSize, -cubeSize, cubeSize * 2, cubeSize * 2);
         ctx.restore();
     }
 }
