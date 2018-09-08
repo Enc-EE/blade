@@ -1,7 +1,7 @@
 import { View } from "./view";
 
 export type AnimationFunction = (ctx: CanvasRenderingContext2D, width?: number, height?: number) => void;
-export type UpdateFunction = (timeDiffMs: number) => void;
+export type UpdateFunction = (timeDiff: number) => void;
 
 export interface Animatable {
     update: UpdateFunction;
@@ -104,9 +104,10 @@ export class Animation {
 
         if (elapsed > this.fpsInterval) {
             this.lastFrameTime = now;
+            var timeDiff = elapsed / 1000;
 
             for (const update of this.updates) {
-                update(elapsed);
+                update(timeDiff);
             }
 
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

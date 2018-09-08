@@ -29,7 +29,7 @@ export class MenuBlade implements Animatable {
         this.addTimer = 0;
     }
 
-    public update = (timeDiffMs: number) => {
+    public update = (timeDiff: number) => {
         if (this.isShown) {
             if (this.isAdded) {
                 this.angle = this.angle + Math.PI / 9;
@@ -38,7 +38,7 @@ export class MenuBlade implements Animatable {
                 this.y = this.rememberedY + this.controller.yAxes * 25;
 
                 if (this.controller.yAxes > 0.3) {
-                    this.addTimer += this.controller.yAxes * timeDiffMs / 1000;
+                    this.addTimer += this.controller.yAxes * timeDiff;
                     if (this.addTimer >= this.removeTimerSeconds) {
                         this.addTimer = 0;
                         this.isShown = false;
@@ -55,7 +55,7 @@ export class MenuBlade implements Animatable {
                 }
             } else {
                 if (this.controller.yAxes < -0.3) {
-                    this.addTimer -= this.controller.yAxes * timeDiffMs / 1000;
+                    this.addTimer -= this.controller.yAxes * timeDiff;
 
                     if (this.addTimer >= this.addTimerSeconds) {
                         this.onAdd(this);
@@ -72,7 +72,7 @@ export class MenuBlade implements Animatable {
             if (this.controller.yAxes < -0.3) {
                 this.onShow(this);
                 this.isShown = true;
-                this.addTimer -= this.controller.yAxes * timeDiffMs / 1000;
+                this.addTimer -= this.controller.yAxes * timeDiff;
             }
         }
     }

@@ -8,10 +8,10 @@ export class View implements Animatable {
     public width: number;
     public height: number;
 
-    public update = (timeDiffMs: number) => {
+    public update = (timeDiff: number) => {
         if (this.isVisible) {
             for (const update of this.updates) {
-                update(timeDiffMs);
+                update(timeDiff);
             }
         }
     }
