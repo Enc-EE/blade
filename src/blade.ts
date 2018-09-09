@@ -38,9 +38,6 @@ export class Blade implements Animatable {
         var fFrictionX = 0.5 * this.A * this.cw * this.p * this.vx * Math.abs(this.vx);
         var fFrictionY = 0.5 * this.A * this.cw * this.p * this.vy * Math.abs(this.vy);
 
-        // fFrictionX = 0;
-        // fFrictionY = 0;
-
         var ax = this.f * this.controller.xAxes - fFrictionX / this.m;
         var ay = this.f * this.controller.yAxes - fFrictionY / this.m;
 

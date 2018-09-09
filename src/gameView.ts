@@ -5,8 +5,17 @@ import { Collider } from "./collider";
 
 export class GameView extends View {
 
+    private started = false;
+
     private blades: Blade[] = [];
     public start(controllers: Controller[]) {
+        if (this.started) {
+            return;
+        }
+        this.started = true;
+
+        console.log(controllers);
+
         for (let i = 0; i < controllers.length; i++) {
             const controller = controllers[i];
             var blade = new Blade(controller);
