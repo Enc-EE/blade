@@ -9,7 +9,7 @@ export class Blade implements Animatable {
     public vy: number;
     public r: number;
     private angle: number;
-    private m: number;
+    public m: number;
     private f: number;
     private A: number;
     private cw: number;
