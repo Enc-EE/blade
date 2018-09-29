@@ -8,6 +8,7 @@ export class MenuView extends View {
     private menuBlades: MenuBlade[] = [];
     public controllers: Controller[] = [];
     private gamepads: { [id: string]: Gamepad } = {};
+    gamepadScanner: number;
 
     constructor(private start: () => void) {
         super();
@@ -16,14 +17,18 @@ export class MenuView extends View {
             ctx.fillStyle = "black";
             ctx.textAlign = "center";
             ctx.font = "22px sans-serif";
-            ctx.fillText("You can control a blade with a gamepad, the arrow keys or WASD.", width / 2, 50);
+            ctx.fillText("You can control a blade with a gamepad, the arrow keys (and +) or WASD (and q).", width / 2, 50);
             ctx.fillText("Press up to join and down to leave.", width / 2, 80);
             ctx.fillText("Press enter on keyboard or start on a controller to start.", width / 2, 110);
         });
-        var blade1 = new MenuBlade(new KeyboardControls("arrows", 37, 38, 39, 40), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
+        var blade1 = new MenuBlade(new KeyboardControls("arrows", 38, 37, 40, 39, 187), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
         this.addAnimatable(blade1);
-        var blade2 = new MenuBlade(new KeyboardControls("wasd", 65, 87, 68, 83), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
+        var blade2 = new MenuBlade(new KeyboardControls("wasd", 87, 65, 83, 68, 81), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
         this.addAnimatable(blade2);
+        var blade3 = new MenuBlade(new KeyboardControls("tfgh", 84, 70, 71, 72, 82), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
+        this.addAnimatable(blade3);
+        var blade4 = new MenuBlade(new KeyboardControls("ijkl", 73, 74, 75, 76, 85), this.showMenuBlade, this.addController, this.removeControllerAndMenuBlade, start);
+        this.addAnimatable(blade4);
 
         window.addEventListener("gamepadconnected", this.connecthandler);
         window.addEventListener("gamepaddisconnected", this.disconnecthandler);
@@ -31,8 +36,12 @@ export class MenuView extends View {
         console.log("haveEvents: " + haveEvents);
 
         if (!haveEvents) {
-            setInterval(this.scangamepads, 500);
+            this.gamepadScanner = setInterval(this.scangamepads, 500);
         }
+    }
+
+    public unload() {
+        clearInterval(this.gamepadScanner);
     }
 
     private showMenuBlade = (menuBlade: MenuBlade) => {

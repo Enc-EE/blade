@@ -49,15 +49,20 @@ export class Animation {
 
         animation.startAnimation();
         animation.resize();
+        window.addEventListener("resize", animation.resize);
         return animation;
     }
 
-    public resize() {
+    public resize = () => {
+        console.log("canvas resizing");
+
         this.canvas.width = this.canvas.clientWidth;
         this.canvas.height = this.canvas.clientHeight;
     }
 
     public startAnimation() {
+        console.log("start animation");
+
         this.isRunning = true;
         this.lastFrameTime = Date.now();
         this.animate();
@@ -65,6 +70,8 @@ export class Animation {
 
     private isRunning = false;
     public stopAnimation() {
+        console.log("stop animation");
+
         this.isRunning = false;
     }
     public playPause() {

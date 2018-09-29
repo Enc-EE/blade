@@ -19,6 +19,12 @@ export class GamepadControls implements Controller {
         return gp.buttons[9].pressed;
     }
 
+    public get a(): boolean {
+        var gamepads = navigator.getGamepads();
+        var gp = gamepads[this.index];
+        return gp.buttons[0].pressed;
+    }
+
     constructor(public name: string, private index: number) {
     }
 }

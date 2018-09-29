@@ -19,6 +19,7 @@ export class App {
 
     private start = () => {
         this.menu.hide();
+        this.menu.unload();
         this.game.show();
         this.game.start(this.menu.controllers);
     }

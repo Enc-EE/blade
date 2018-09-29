@@ -1,12 +1,13 @@
 import { Controller } from "./controller";
 
 export class KeyboardControls implements Controller {
+    public a: boolean;
     public xAxes: number;
     public yAxes: number;
 
     public start: boolean;
 
-    constructor(public name: string, leftKey: number, upKey: number, rightKey: number, downKey: number) {
+    constructor(public name: string, upKey: number, leftKey: number, downKey: number, rightKey: number, a: number) {
         this.xAxes = 0;
         this.yAxes = 0;
         this.start = false;
@@ -26,6 +27,9 @@ export class KeyboardControls implements Controller {
             }
             if (event.keyCode == 13) {
                 this.start = true;
+            }
+            if (event.keyCode == a) {
+                this.a = true;
             }
         });
 
@@ -52,6 +56,9 @@ export class KeyboardControls implements Controller {
             }
             if (event.keyCode == 13) {
                 this.start = false;
+            }
+            if (event.keyCode == a) {
+                this.a = false;
             }
         });
     }

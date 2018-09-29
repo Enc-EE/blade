@@ -4,4 +4,5 @@ export interface Controller {
     name: string;
 
     start: boolean;
+    a: boolean;
 }
