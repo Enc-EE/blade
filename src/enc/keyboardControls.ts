@@ -1,4 +1,4 @@
-import { Controller } from "./enc/controller";
+import { Controller } from "./controller";
 
 export class KeyboardControls implements Controller {
     public xAxes: number;

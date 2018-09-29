@@ -1,4 +1,4 @@
-import { Animation } from "./animation";
+import { Animation } from "./enc/animation";
 import { MenuView } from "./menuView";
 import { GameView } from "./gameView";
 

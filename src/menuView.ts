@@ -1,8 +1,8 @@
-import { View } from "./view";
+import { View } from "./enc/view";
 import { MenuBlade } from "./menuBlade";
-import { KeyboardControls } from "./keyboardControls";
-import { GamepadControls } from "./gamepadControls";
-import { Controller } from "./controller";
+import { KeyboardControls } from "./enc/keyboardControls";
+import { GamepadControls } from "./enc/gamepadControls";
+import { Controller } from "./enc/controller";
 
 export class MenuView extends View {
     private menuBlades: MenuBlade[] = [];

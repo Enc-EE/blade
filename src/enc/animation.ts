@@ -14,7 +14,6 @@ export class Animation {
     private animations: AnimationFunction[] = [];
     private updates: UpdateFunction[] = [];
 
-
     public get width(): number {
         return this.canvas.width;
     }
@@ -41,6 +40,13 @@ export class Animation {
         animation.canvas = canvas;
         animation.ctx = canvas.getContext('2d');
 
+        document.addEventListener('keyup', (event) => {
+            if (event.keyCode == 80) { // space
+                animation.playPause();
+            }
+            console.log(event.keyCode);
+        });
+
         animation.startAnimation();
         animation.resize();
         return animation;
@@ -52,8 +58,17 @@ export class Animation {
     }
 
     public startAnimation() {
+        this.isRunning = true;
         this.lastFrameTime = Date.now();
         this.animate();
+    }
+
+    private isRunning = false;
+    public stopAnimation() {
+        this.isRunning = false;
+    }
+    public playPause() {
+        this.isRunning ? this.stopAnimation() : this.startAnimation();
     }
 
     public addAnimation = (func: AnimationFunction) => {
@@ -97,7 +112,9 @@ export class Animation {
     private fpsInterval = 1000 / this.fps;
 
     private animate = () => {
-        requestAnimationFrame(this.animate);
+        if (this.isRunning) {
+            requestAnimationFrame(this.animate);
+        }
 
         var now = Date.now();
         var elapsed = now - this.lastFrameTime;

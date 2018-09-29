@@ -1,5 +1,5 @@
-import { Animatable } from "./animation";
-import { Controller } from "./controller";
+import { Animatable } from "./enc/animation";
+import { Controller } from "./enc/controller";
 
 export class MenuBlade implements Animatable {
     private angle: number;
